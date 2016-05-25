@@ -91,7 +91,7 @@ export default class Params extends React.Component {
       alpha,
     });
 
-    this.props.onAlphaChange(alpha);
+    this.props.onAlphaChange(alpha, true);
   }
 
   onColorChannelChange(index, event) {
@@ -106,7 +106,9 @@ export default class Params extends React.Component {
       hex: color.toHex().substr(1),
       color,
     });
-    this.props.onChange(color.toHsvObject(), false);
+
+    this.props.onChange(color.toHsvObject(), true, true);
+
   }
 
   getChannelInRange(value, index) {
@@ -226,6 +228,7 @@ Params.propTypes = {
   rootPrefixCls: React.PropTypes.string,
   onAlphaChange: React.PropTypes.func,
   mode: React.PropTypes.oneOf(modesMap),
+
 };
 
 Params.defaultProps = {

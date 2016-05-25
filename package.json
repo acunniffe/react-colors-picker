@@ -1,6 +1,6 @@
 {
-  "name": "react-colors-picker",
-  "version": "2.3.1",
+  "name": "ds-react-colors-picker",
+  "version": "2.3.22",
   "description": "color-picker ui component for react",
   "main": "lib/index.js",
   "keywords": [

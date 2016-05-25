@@ -119,6 +119,7 @@ export default class ColorPicker extends React.Component {
         alpha={this.state.alpha}
         prefixCls={this.props.prefixCls + '-panel'}
         onChange={this.onChange}
+        onMaterialChange={this.onMaterialChangeTrigger}
         onBlur={this.onBlur}
         mode={this.props.mode}
       />

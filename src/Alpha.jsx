@@ -49,7 +49,7 @@ export default class Alpha extends React.Component {
     const y = e.clientY;
     this.pointMoveTo({
       x, y,
-    });
+    }, true);
     if (this.dragListener) {
       this.dragListener.remove();
       this.dragListener = null;
@@ -72,7 +72,7 @@ export default class Alpha extends React.Component {
     return this.props.rootPrefixCls + '-alpha';
   }
 
-  pointMoveTo(coords) {
+  pointMoveTo(coords, material) {
     const rect = ReactDOM.findDOMNode(this).getBoundingClientRect();
     const width = rect.width;
     let left = coords.x - rect.left;
@@ -82,7 +82,7 @@ export default class Alpha extends React.Component {
 
     const alpha = Math.floor(left / width * 100);
 
-    this.props.onChange(alpha);
+    this.props.onChange(alpha, material);
   }
 
   render() {

@@ -47,7 +47,7 @@ export default class Board extends React.Component {
     this.pointMoveTo({
       x,
       y,
-    });
+    }, true);
     if (this.dragListener) {
       this.dragListener.remove();
       this.dragListener = null;
@@ -67,7 +67,7 @@ export default class Board extends React.Component {
    * @param  {object} pos X Y 全局坐标点
    * @return {undefined}
    */
-  pointMoveTo(pos) {
+  pointMoveTo(pos, material) {
     const rect = ReactDOM.findDOMNode(this).getBoundingClientRect();
     let left = pos.x - rect.left;
     let top = pos.y - rect.top;
@@ -82,7 +82,9 @@ export default class Board extends React.Component {
       s: parseInt(left / WIDTH * 100, 10),
       v: parseInt((1 - top / HEIGHT) * 100, 10),
     };
-    this.props.onChange(hsv);
+
+    this.props.onChange(hsv, true, material);
+
   }
 
   render() {

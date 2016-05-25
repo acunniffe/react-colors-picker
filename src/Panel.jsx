@@ -51,7 +51,7 @@ export default class Panel extends React.Component {
     }
   }
 
-  onChange(hsvObject, syncParams = true) {
+  onChange(hsvObject, syncParams = true, material = false) {
     const hsv = hsvObject;
     const state = {
       hsv,
@@ -67,6 +67,10 @@ export default class Panel extends React.Component {
       alpha: this.state.alpha,
     };
     this.props.onChange(ret);
+    if (material) {
+      this.props.onMaterialChange(ret)
+    }
+
   }
 
   onSystemColorPickerOpen(e) {
@@ -76,17 +80,28 @@ export default class Panel extends React.Component {
     }
   }
 
-  onAlphaChange(alpha) {
+  onAlphaChange(alpha, material = false) {
     if (this.props.alpha === undefined) {
       this.setState({
         alpha,
       });
     }
+    const rt = {
+      color: this.getHexColor(),
+      hsv: this.state.hsv,
+      alpha,
+    }
+
     this.props.onChange({
       color: this.getHexColor(),
       hsv: this.state.hsv,
       alpha,
     });
+
+    if (material) {
+      this.props.onMaterialChange(rt)
+    }
+
   }
 
   onFocus() {
@@ -141,7 +156,7 @@ export default class Panel extends React.Component {
                 rootPrefixCls={prefixCls}
                 hsv={hsv}
                 onChange={this.onChange}
-                />
+              />
             </div>
             <div className={prefixCls + '-' + ('wrap-alpha')}>
               <Alpha
@@ -149,7 +164,7 @@ export default class Panel extends React.Component {
                 alpha={alpha}
                 hsv={hsv}
                 onChange={this.onAlphaChange}
-                />
+              />
             </div>
             <div className={prefixCls + '-' + ('wrap-preview')}>
               <Preview
@@ -188,6 +203,7 @@ Panel.propTypes = {
   alpha: PropTypes.number,
   style: PropTypes.object,
   onChange: PropTypes.func,
+  onMaterialChange: PropTypes.func,
   onFocus: PropTypes.func,
   onBlur: PropTypes.func,
   mode: PropTypes.oneOf(['RGB', 'HSL', 'HSB']),
@@ -199,6 +215,7 @@ Panel.defaultProps = {
   defaultAlpha: 100,
   style: {},
   onChange: noop,
+  onMaterialChange: noop,
   onFocus: noop,
   onBlur: noop,
   mode: 'RGB',

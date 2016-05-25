@@ -45,7 +45,7 @@ export default class Ribbon extends React.Component {
     const y = e.clientY;
     this.pointMoveTo({
       x, y,
-    });
+    }, true);
     if (this.dragListener) {
       this.dragListener.remove();
       this.dragListener = null;
@@ -54,13 +54,14 @@ export default class Ribbon extends React.Component {
       this.dragUpListener.remove();
       this.dragUpListener = null;
     }
+
   }
 
   getPrefixCls() {
     return this.props.rootPrefixCls + '-ribbon';
   }
 
-  pointMoveTo(coords) {
+  pointMoveTo(coords, material) {
     const rect = ReactDOM.findDOMNode(this).getBoundingClientRect();
     const width = rect.width;
     let left = coords.x - rect.left;
@@ -73,7 +74,7 @@ export default class Ribbon extends React.Component {
       ...this.props.hsv,
       h: hue,
     };
-    this.props.onChange(hsv);
+    this.props.onChange(hsv, true, material);
   }
 
   render() {
